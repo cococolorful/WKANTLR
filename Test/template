@@ -1,0 +1,24 @@
+{{#classes}}
+auto _meta_info_generator_{{class_special_name}} = [](){
+	ClassInfo v_meta{TypeInfo::Of<{{class_type}}>(),{} };
+
+	{{#fields}}
+	// add fields {{field_name}}
+	FieldInfo {{field_name}}{ &{{class_type}}::{{field_name}} };
+	{{#exist_field_attribute}} 
+	{{field_name}}.attributes.AddAttribute({{attribute_list}});
+	{{/exist_field_attribute}}	
+	v_meta.AddField("{{field_name}}", {{field_name}});
+
+	{{/fields}}
+
+	// add class attributes
+	{{#exist_class_attribute}} 
+	v_meta.attributes.AddAttribute({{attribute_list}});
+	{{/exist_class_attribute}}	
+
+	ReflectionManager::Instance().Register(v_meta.type_id.hash_code, v_meta);
+
+	return 0;
+}();
+{{/classes}}
