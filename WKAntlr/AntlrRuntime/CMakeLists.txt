@@ -6,9 +6,6 @@ file(GLOB_RECURSE libantlrcpp_SRC "src/*.cpp" Mustache/mustache.hpp)
 add_library(antlr4_static STATIC ${libantlrcpp_SRC} ${libantlrcpp_Head})
 target_include_directories(antlr4_static PUBLIC src Mustache)
 
-set(LIB_OUTPUT_DIR "${CMAKE_HOME_DIRECTORY}/dist") # put generated libraries here.
-message(STATUS "Output libraries to ${LIB_OUTPUT_DIR}")
-
 #
 #if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 #  set(disabled_compile_warnings "/wd4251")
