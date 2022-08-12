@@ -3,6 +3,5 @@
 ################################################################################
 
 /out/build/x64-Debug
-/Test/CPP/CMakeLists.txt
 /.vs
 /Test/out/build/x64-Debug
