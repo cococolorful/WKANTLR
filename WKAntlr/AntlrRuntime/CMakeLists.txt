@@ -1,53 +1,13 @@
 
-#include_directories(
-#  ${PROJECT_SOURCE_DIR}/runtime/src
-#  ${PROJECT_SOURCE_DIR}/runtime/src/atn
-#  ${PROJECT_SOURCE_DIR}/runtime/src/dfa
-#  ${PROJECT_SOURCE_DIR}/runtime/src/misc
-#  ${PROJECT_SOURCE_DIR}/runtime/src/support
-#  ${PROJECT_SOURCE_DIR}/runtime/src/tree
-#  ${PROJECT_SOURCE_DIR}/runtime/src/tree/pattern
-#  ${PROJECT_SOURCE_DIR}/runtime/src/tree/xpath
-#)
-#
-#file(GLOB libantlrcpp_Head
-#  "${PROJECT_SOURCE_DIR}/runtime/src/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/atn/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/dfa/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/misc/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/support/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/pattern/*.h"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/xpath/*.h"
-#)
-#file(GLOB libantlrcpp_SRC
-#  "${PROJECT_SOURCE_DIR}/runtime/src/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/atn/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/dfa/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/misc/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/support/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/pattern/*.cpp"
-#  "${PROJECT_SOURCE_DIR}/runtime/src/tree/xpath/*.cpp"
-#)
 
 file(GLOB_RECURSE libantlrcpp_Head "src/*.h")
 file(GLOB_RECURSE libantlrcpp_SRC "src/*.cpp" Mustache/mustache.hpp)
 
-#add_library(antlr4_shared SHARED ${libantlrcpp_SRC})
 add_library(antlr4_static STATIC ${libantlrcpp_SRC} ${libantlrcpp_Head})
-target_include_directories(antlr4_static PUBLIC src)
+target_include_directories(antlr4_static PUBLIC src Mustache)
 
 set(LIB_OUTPUT_DIR "${CMAKE_HOME_DIRECTORY}/dist") # put generated libraries here.
 message(STATUS "Output libraries to ${LIB_OUTPUT_DIR}")
-
-# make sure 'make' works fine even if ${LIB_OUTPUT_DIR} is deleted.
-add_custom_target(make_lib_output_dir ALL
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${LIB_OUTPUT_DIR}
-    )
-
-#add_dependencies(antlr4_shared make_lib_output_dir)
-add_dependencies(antlr4_static make_lib_output_dir)
 
 #
 #if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
